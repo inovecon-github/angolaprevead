@@ -8,7 +8,7 @@ RUN docker-php-ext-install -j$(nproc) mysqli
 RUN set -eux; apt-get update; apt-get install -y libzip-dev
 
 RUN apt-get update \
-  && apt-get install -f -y --no-install-recommends openssh-server \
+  && apt-get install -f -y --no-install-recommends \
   rsync \
   netcat \
   curl \
@@ -93,18 +93,16 @@ WORKDIR /var/www/html
 
 RUN usermod -aG sudo www-data
 
-RUN mkdir -p /run/sshd && echo "root:Docker!" | chpasswd
-COPY sshd_config /etc/ssh/
+#RUN mkdir -p /run/sshd && echo "root:Docker!" | chpasswd
+#COPY sshd_config /etc/ssh/
 
 #Dar permissoes de usuario a pasta
 #RUN chown www-data.www-data /var/www/html -R
 
 # Open port 2222 for SSH access
-EXPOSE 80/tcp
-EXPOSE 2222/tcp
-EXPOSE 443/tcp
+EXPOSE 80 2222 443
 
-ENTRYPOINT ["/bin/bash", "-c", "/usr/sbin/sshd"]
+#ENTRYPOINT ["/bin/bash", "-c", "/usr/sbin/sshd"]
 
 
 
