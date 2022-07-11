@@ -100,9 +100,9 @@ COPY sshd_config /etc/ssh/
 #RUN chown www-data.www-data /var/www/html -R
 
 # Open port 2222 for SSH access
-EXPOSE 80
-EXPOSE 2222
-EXPOSE 443
+EXPOSE 80/tcp
+EXPOSE 2222/tcp
+EXPOSE 443/tcp
 
 ENTRYPOINT ["/bin/bash", "-c", "/usr/sbin/sshd"]
 
